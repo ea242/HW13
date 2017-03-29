@@ -1,13 +1,16 @@
 <?php
+
+//namespace Atempa\Cart;
+
 // Add an item to the cart
-function add_item($key, $quantity) {
+function add_item(&$cart, $key, $quantity) {
     global $products;
     if ($quantity < 1) return;
 
     // If item already exists in cart, update quantity
-    if (isset($_SESSION['cart13'][$key])) {
-        $quantity += $_SESSION['cart13'][$key]['qty'];
-        update_item($key, $quantity);
+    if (isset($cart[$key])) {
+        $quantity += $cart[$key]['qty'];
+        update_item($cart, $key, $quantity);
         return;
     }
 
@@ -20,31 +23,32 @@ function add_item($key, $quantity) {
         'qty'  => $quantity,
         'total' => $total
     );
-    $_SESSION['cart13'][$key] = $item;
+    $cart[$key] = $item;
 }
 
 // Update an item in the cart
-function update_item($key, $quantity) {
+function update_item(&$cart, $key, $quantity) {
     $quantity = (int) $quantity;
-    if (isset($_SESSION['cart13'][$key])) {
+    if (isset($cart[$key])) {
         if ($quantity <= 0) {
-            unset($_SESSION['cart13'][$key]);
+            unset($cart[$key]);
         } else {
-            $_SESSION['cart13'][$key]['qty'] = $quantity;
-            $total = $_SESSION['cart13'][$key]['cost'] *
-                     $_SESSION['cart13'][$key]['qty'];
-            $_SESSION['cart13'][$key]['total'] = $total;
+            $cart[$key]['qty'] = $quantity;
+            $total = $cart[$key]['cost'] *
+                     $cart[$key]['qty'];
+            $cart[$key]['total'] = $total;
         }
     }
 }
 
 // Get cart subtotal
-function get_subtotal () {
+function get_subtotal (&$cart, $dec = 2) {
+    $dec = (int) $dec;
     $subtotal = 0;
-    foreach ($_SESSION['cart13'] as $item) {
+    foreach ($cart as $item) {
         $subtotal += $item['total'];
     }
-    $subtotal_f = number_format($subtotal, 2);
+    $subtotal_f = number_format($subtotal, $dec);
     return $subtotal_f;
 }
 ?>

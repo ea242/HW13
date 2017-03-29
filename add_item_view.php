@@ -9,6 +9,7 @@
         <h1>My Guitar Shop</h1>
     </header>
     <main>
+
         <h1>Add Item</h1>
         <form action="." method="post">
             <input type="hidden" name="action" value="add">
@@ -36,9 +37,10 @@
             </select><br>
 
             <label>&nbsp;</label>
-            <input type="submit" value="Add Item">
+            <input type="submit" value="Add Item"/>
         </form>
         <p><a href=".?action=show_cart">View Cart</a></p>
+
     </main>
 </body>
 </html>

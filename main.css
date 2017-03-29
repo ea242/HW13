@@ -69,10 +69,9 @@ form {
 label {
     width: 5em;
     float: left;
-    text-align: right;
     margin-right: 1em;
-    margin-top: .25em;
-    margin-bottom: .75em;
+    text-align: right;
+    margin-bottom: 1em;
 }
 table {
     width: 70%;
